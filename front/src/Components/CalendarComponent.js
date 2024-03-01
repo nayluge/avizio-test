@@ -19,16 +19,15 @@ const CalendarComponent = () => {
     };
 
     const handleConfirm = () => {
-        // Ici, vous pouvez traiter les informations de la réunion, par exemple les envoyer à un serveur
         console.log("Meeting Object:", meetingObject);
         console.log("Start Date:", selectedDateStart);
         console.log("End Date:", selectedDateEnd);
-        setModalIsOpen(false); // Fermer la modal après la confirmation
-    };
+        setModalIsOpen(false);
+    }
 
     const resetModal = () => {
         setMeetingObject("");
-        setModalIsOpen(false); // Fermer la modal après la confirmation
+        setModalIsOpen(false);
     };
 
     return (
@@ -44,6 +43,31 @@ const CalendarComponent = () => {
                 onRequestClose={() => setModalIsOpen(false)}
                 contentLabel="Confirm your date"
                 overlayClassName={'modal-overlay'}
+                style={{
+                    overlay: {
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                        zIndex: 10000
+                    },
+                    content: {
+                        position: 'absolute',
+                        top: '40px',
+                        left: '40px',
+                        right: '40px',
+                        bottom: '40px',
+                        border: '1px solid #ccc',
+                        background: '#fff',
+                        overflow: 'auto',
+                        WebkitOverflowScrolling: 'touch',
+                        borderRadius: '4px',
+                        outline: 'none',
+                        padding: '20px'
+                    }
+                }}
             >
                 <h2>Confirmation</h2>
                 <p>You have selected a meeting between {selectedDateStart.toString()} and {selectedDateEnd.toString()}</p>
