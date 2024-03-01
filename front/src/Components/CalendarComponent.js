@@ -53,7 +53,7 @@ const CalendarComponent = () => {
                     value={meetingObject}
                     onChange={(e) => setMeetingObject(e.target.value)}
                 />
-                <button onClick={handleConfirm}>Confirm</button>
+                <button onClick={handleConfirm} disabled={meetingObject.length < 5}>Confirm</button>
                 <button onClick={resetModal}>Cancel</button>
             </Modal>
         </div>
