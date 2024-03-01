@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Modal from 'react-modal';
+import axios from 'axios';
 
 Modal.setAppElement('#root');
 
@@ -19,10 +20,23 @@ const CalendarComponent = () => {
     };
 
     const handleConfirm = () => {
-        console.log("Meeting Object:", meetingObject);
-        console.log("Start Date:", selectedDateStart);
-        console.log("End Date:", selectedDateEnd);
-        setModalIsOpen(false);
+        const meetingData = {
+            meetingObject: meetingObject,
+            startDate: selectedDateStart,
+            endDate: selectedDateEnd
+        };
+
+        // @todo : le baseurl passer cela en variable d'env
+        axios.post('http://localhost:3001/create-meeting', meetingData)
+            .then(function (response) {
+                console.log(response.data);
+                setModalIsOpen(false);
+            })
+            .catch(function (error) {
+                console.log(error);
+                //@todo: gestion des erreurs
+                setModalIsOpen(false);
+            });
     }
 
     const resetModal = () => {
