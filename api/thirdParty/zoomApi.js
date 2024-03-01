@@ -36,11 +36,20 @@ const createZoomMeeting = async (schedule) => {
 
         const meetingDate = new Date('05 March 2023 14:48 UTC');
 
+        // @todo: validate all fields
+        const topic = schedule.meetingObject;
+
+        const startTime = new Date(schedule.startDate);
+        const endTime = new Date(schedule.endDate);
+
+        const diff = endTime.getTime() - startTime.getTime();
+        const duration = diff / (1000 * 60);
+
         const response = await axios.post(`${ZOOM_API_BASE_URL}/users/me/meetings`, {
-            topic: 'test meeting',
+            topic: topic,
             type: 2,
             start_time: meetingDate.toISOString(),
-            duration: 60,
+            duration: duration,
         }, {
             headers: {
                 'Authorization': `Bearer ${token}`,

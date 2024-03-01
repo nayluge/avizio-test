@@ -4,14 +4,13 @@ const { createZoomMeeting } = require('./thirdParty/zoomApi');
 const cors = require('cors');
 
 const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 app.post('/create-meeting', async (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
-    const { schedule } = req.body;
     try {
-        const meeting = await createZoomMeeting(schedule);
+        const meeting = await createZoomMeeting(req.body);
         res.json(meeting);
     } catch (error) {
         console.error(error);
